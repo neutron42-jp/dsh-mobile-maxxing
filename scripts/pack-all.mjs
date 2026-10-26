@@ -13,15 +13,23 @@ const dist = join(root, "dist");
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist, { recursive: true });
 
-// The repository root is the published package; packages/dsh-mobile-maxxing/ is the
-// implementation and ships inside it.
+// Two independent bundles live here. The repository root is the mobile one, with
+// its implementation in packages/dsh-mobile-maxxing/; packages/rdsh-remote-link/
+// is the QR bundle, shipped exactly as its own plugin.
 const manifest = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+const remote = JSON.parse(readFileSync(join(root, "packages", "rdsh-remote-link", "package.json"), "utf8"));
 const packages = [{
 	directory: root,
 	name: manifest.name,
 	version: manifest.version,
 	file: `${manifest.name}-${manifest.version}.tgz`,
 	alias: `${manifest.name}.tgz`,
+}, {
+	directory: join(root, "packages", "rdsh-remote-link"),
+	name: remote.name,
+	version: remote.version,
+	file: `${remote.name}-${remote.version}.tgz`,
+	alias: `${remote.name}.tgz`,
 }];
 
 // Rewrite the READMEs BEFORE packing. `npm pack` snapshots the files, so

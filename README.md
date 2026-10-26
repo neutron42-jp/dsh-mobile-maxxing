@@ -19,6 +19,20 @@ dsh plugin --profile web add https://github.com/kuraneko1/dsh-mobile-maxxing
 （`--profile` は必須で、`cd ~/.dsh/profiles/web` は要りません）。
 追加のプラグインも、通知用ライブラリも要りません。
 
+## 同梱されているプラグイン
+
+このリポジトリは、独立した2つの DSH バンドルを同梱しています。
+
+| バンドル | 内容 | 入れる |
+| --- | --- | --- |
+| `dsh-mobile-maxxing`（リポジトリ直下） | PWA・通知・モバイルUX・セッションIDのコピー | `dsh plugin --profile web add https://github.com/kuraneko1/dsh-mobile-maxxing` |
+| `rdsh-remote-link`（`packages/rdsh-remote-link`） | サイドバー下部に、この Web GUI のトークン付き URL と QR コードを出すボタン | `dsh plugin --profile web add link:/path/to/dsh-mobile-maxxing/packages/rdsh-remote-link` |
+
+2つは独立していて、どちらか一方だけでも動きます。`rdsh-remote-link` は
+[元のプラグイン](https://github.com/neutron42-jp/dsh-remote-qr) を**変更せずに**同梱しています
+（PC のサイドバー下部にボタンが1つ増えるだけで、760px 未満では QR を隠して URL とコピーだけを出す、
+元の挙動のまま）。
+
 ## できること
 
 | 機能 | 内容 |
@@ -90,6 +104,19 @@ dsh plugin --profile web add https://github.com/kuraneko1/dsh-mobile-maxxing
 That is all: `dsh plugin --profile web add` updates both the dependency and the bundle list
 (`--profile` is required; the `cd ~/.dsh/profiles/web` is not). No companion plugin and no
 push library are needed.
+
+## Bundled plugins
+
+The repository hosts two independent DSH bundles.
+
+| Bundle | What | Install |
+| --- | --- | --- |
+| `dsh-mobile-maxxing` (repository root) | PWA, notifications, phone/tablet layout, session-id copy | `dsh plugin --profile web add https://github.com/kuraneko1/dsh-mobile-maxxing` |
+| `rdsh-remote-link` (`packages/rdsh-remote-link`) | A sidebar-foot button with this Web GUI's tokenized URL and QR code | `dsh plugin --profile web add link:/path/to/dsh-mobile-maxxing/packages/rdsh-remote-link` |
+
+Each works on its own. `rdsh-remote-link` is the [original plugin](https://github.com/neutron42-jp/dsh-remote-qr)
+shipped **unchanged**: one extra button in the sidebar foot, and below 760px it keeps the URL and
+copy button while hiding the QR.
 
 ## What it does
 

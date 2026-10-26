@@ -3,13 +3,14 @@
 ## 構成
 
 ```
-packages/dsh-mobile-maxxing/    単一のプラグイン（1パッケージ・1インストール）
+packages/dsh-mobile-maxxing/    バンドル1: スマホ向け統合プラグイン
   index.js            ホスト側の入口。3つの host half をここから mount する
   client.js           ブラウザ側。3つの機能を1モジュールにまとめてある
   lib/                ホスト側の各機能
   notify/             Web Push（VAPID + aes128gcm の自前実装）
   sw.js               サービスワーカー
-scripts/pack-all.mjs  配布用 tarball を dist/ にまとめる
+packages/rdsh-remote-link/     バンドル2: URL/QR 表示（元プラグインを変更せず同梱）
+scripts/pack-all.mjs           2つのバンドルの tarball を dist/ にまとめる
 ```
 
 ### なぜ1パッケージなのか
@@ -47,8 +48,9 @@ DSH のクライアントモジュールシステムは**1パッケージ＝1ブ
 ## テスト
 
 ```sh
-npm test                                  # すべて（ブラウザ不要）
+npm test                                  # 両バンドル（ブラウザ不要）
 node --test packages/dsh-mobile-maxxing/tests/plugin.test.mjs   # 1ファイルだけ
+npm run test:remote-link                  # rdsh-remote-link だけ
 ```
 
 `tests/e2e.mjs` は実ブラウザでの確認用で、`npm test` には含めていません。
@@ -68,6 +70,7 @@ gh release create vX.Y.Z dist/*.tgz
 
 - `kuraneko1/DSH-PWA`（アーカイブ済み）— `rdsh-pwa` / `rdsh-mobile-ux`
 - `kuraneko1/rdsh-markdown-cjk`
+- `neutron42-jp/dsh-remote-qr` — `rdsh-remote-link`（**変更せず** `packages/rdsh-remote-link` に同梱）
 - ローカルのみだったもの: `rdsh-session-id-copy`
 
 `rdsh-open-with` はデスクトップ向けの右クリック操作なので外しました。
